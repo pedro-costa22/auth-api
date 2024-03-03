@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --watch src/ --exec ts-node src/index.ts -e ts",
-    "start": "node dist/index.js",
+    "start": "node dist/lib/src/index.js",
     "build": "tsc"
   },
   "license": "MIT",
@@ -24,6 +24,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
