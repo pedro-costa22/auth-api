@@ -1,0 +1,17 @@
+version: '3.5'
+
+services: 
+  db-postgres:
+    image: postgres:alpine
+    ports:
+      - "5435:5432"
+    container_name: "dbauth-api"
+    restart: always
+    volumes: 
+      - ./dbauth-api:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpassword
+
+volumes: 
+  dbauth-api:
