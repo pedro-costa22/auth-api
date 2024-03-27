@@ -1,18 +1,19 @@
 FROM node:latest
 
-WORKDIR /app
+RUN mkdir -p /usr/src/app
 
-COPY package*.json ./
+WORKDIR /usr/src/app
 
-RUN npm install
+COPY package.json package-lock.json yarn.lock ./
+
+RUN npm install --production
 
 COPY . .
 
-RUN rm -rf node_modules/
-RUN npm update
+RUN npx prisma generate
 
 RUN npm run build
 
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["npm", "start"]

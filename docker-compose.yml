@@ -1,17 +1,30 @@
 version: '3.5'
 
+networks:
+  authapp-network:
+    external: false
+
 services: 
-  db-postgres:
-    image: postgres:alpine
+  authapi:
+    build: .
+    container_name: "authapp-api"
+    networks:
+      - authapp-network
     ports:
-      - "5435:5432"
+      - "3000:3000"
+    depends_on:
+      - db-authapp
+
+  db-authapp:
+    image: postgres:alpine
     container_name: "dbauth-api"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     restart: always
+    networks:
+      - authapp-network
     volumes: 
       - ./dbauth-api:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: pguser
-      POSTGRES_PASSWORD: pgpassword
-
-volumes: 
-  dbauth-api:
+    ports:
+      - "5435:5432"
